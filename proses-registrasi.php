@@ -10,6 +10,14 @@ $nohp = $_POST['nohp'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
+//jika form registrasi ada yang kosong
+if($role = "" || $nik = ""|| $nama = "" || $nohp = "" || $username = "" || $password = ""){
+    echo "<script>
+            alert('Form tidak boleh ada yang kosong!');
+            document.location='registrasi.php';
+        </script>";
+}
+
 //jika daftar sebagai pemilik
 if($role == 'pemilik'){
     $cekdata = mysqli_query($koneksi, "SELECT * FROM pemilik WHERE username='$username'");
