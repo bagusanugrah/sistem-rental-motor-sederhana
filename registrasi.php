@@ -38,8 +38,8 @@
 					<form method="post" action="proses-registrasi.php">
 						<div class="form-group">
 							<label>Daftar Sebagai</label>
-							<select name="role" class="form-select" aria-label="Default select example">
-								<option selected>-- Pilih Salah Satu --</option>
+							<select name="role" class="form-select" aria-label="Default select example" required>
+								<option value="">-- Pilih Salah Satu --</option>
 								<option value="pemilik">Pemilik Motor</option>
 								<option value="penyewa">Penyewa Motor</option>
 							</select>
