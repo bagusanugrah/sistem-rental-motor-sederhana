@@ -62,7 +62,7 @@
 						</div><br>
 						<div class="form-group">
 							<label for="password">Password</label>
-							<input id="password" type="text" name="password" value="" class="form-control" required>
+							<input id="password" type="password" name="password" value="" class="form-control" required>
 						</div><br>
 						<button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
 						<button type="reset" class="btn btn-danger" name="reset">Reset</button>
