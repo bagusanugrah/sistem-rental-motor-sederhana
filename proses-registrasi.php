@@ -18,6 +18,22 @@ if($role = "" || $nik = ""|| $nama = "" || $nohp = "" || $username = "" || $pass
         </script>";
 }
 
+//jika username tidak bukan lowercase
+if($username != strtolower($username)){
+    echo "<script>
+            alert('username harus lowercase!');
+            document.location='registrasi.php';
+        </script>";
+}
+
+//jika username terdiri dari selain dari aphanumeric dan titik
+if(!(ctype_alnum($username) || strpos($username, '.'))){
+    echo "<script>
+            alert('username tidak boleh selain dari huruf, angka, atau titik!');
+            document.location='registrasi.php';
+        </script>";
+}
+
 //jika daftar sebagai pemilik
 if($role == 'pemilik'){
     $cekdata = mysqli_query($koneksi, "SELECT * FROM pemilik WHERE username='$username'");
