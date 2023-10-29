@@ -48,7 +48,7 @@
 						</div><br>
 						<div class="form-group">
 							<label for="password">Password</label>
-							<input id="password" type="text" name="password" value="" class="form-control" required>
+							<input id="password" type="password" name="password" value="" class="form-control" required>
 						</div><br>
 						<button type="submit" class="btn btn-primary" name="login">Login</button>
 						<a href="registrasi.php" class="btn btn-secondary">Daftar</a>
