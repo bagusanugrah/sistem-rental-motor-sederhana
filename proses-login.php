@@ -29,6 +29,8 @@ if($username == "" || $password == ""){
                 session_start();
                 //buat session username
                 $_SESSION['username'] = $username;
+                //buat session role
+                $_SESSION['role'] = $role;
                 //redirect ke dashboard
                 echo "<script>
                         document.location='dashboard-pemilik.php?id=$username';
@@ -57,6 +59,8 @@ if($username == "" || $password == ""){
                 session_start();
                 //buat session username
                 $_SESSION['username'] = $username;
+                //buat session role
+                $_SESSION['role'] = $role;
                 //redirect ke dashboard
                 echo "<script>
                         document.location='dashboard-penyewa.php?id=$username';

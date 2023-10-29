@@ -2,10 +2,20 @@
     //jalankan session
     session_start();
     //jika session username tidak diatur
-    if (!isset($_SESSION['username'])){
+    if(!isset($_SESSION['username'])){
         //redirect ke halaman login
         echo "<script>
                 document.location='login.php';
+            </script>";
+    }
+
+    //nilai session username ditampung ke dalam variabel username
+    $username = $_SESSION['username'];
+    //jika session role diatur dan session role bernilai 'penyewa'
+    if(isset($_SESSION['role']) && $_SESSION['role'] == 'penyewa'){
+        //redirect ke dashboard penyewa
+        echo "<script>
+                document.location='dashboard-penyewa.php?id=$username';
             </script>";
     }
 ?>
@@ -29,7 +39,7 @@
 				
 			</ul>
 			<div class="d-flex">
-				<a href="login.php" class="btn btn-dark">Logout</a>
+				<a href="proses-logout.php" class="btn btn-dark">Logout</a>
 			</div>
 			</div>
 		</div>

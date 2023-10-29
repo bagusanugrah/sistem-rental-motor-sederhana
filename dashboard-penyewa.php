@@ -8,6 +8,16 @@
                 document.location='login.php';
             </script>";
     }
+
+    //nilai session username ditampung ke dalam variabel username
+    $username = $_SESSION['username'];
+    //jika session role diatur dan session role bernilai 'pemilik'
+    if(isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'){
+        //redirect ke dashboard pemilik
+        echo "<script>
+                document.location='dashboard-pemilik.php?id=$username';
+            </script>";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +39,7 @@
 				
 			</ul>
 			<div class="d-flex">
-				<a href="login.php" class="btn btn-dark">Logout</a>
+				<a href="proses-logout.php" class="btn btn-dark">Logout</a>
 			</div>
 			</div>
 		</div>
