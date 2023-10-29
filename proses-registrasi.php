@@ -18,7 +18,7 @@ if($role == "" || $nik == ""|| $nama == "" || $nohp == "" || $username == "" || 
         </script>";
 } else {//jika form tidak ada yang kosong
     //jika username terdiri dari selain dari aphanumeric dan titik
-    if(!(ctype_alnum($username) || strpos($username, '.'))){
+    if(preg_match('/[^a-zA-Z0-9.]/', $username)){
         echo "<script>
                 alert('username tidak boleh selain dari huruf, angka, atau titik!');
                 document.location='registrasi.php';
