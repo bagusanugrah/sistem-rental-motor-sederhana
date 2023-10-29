@@ -58,16 +58,16 @@
 				<div class="card-body">
 					<form method="post" action="tambah-motor.php">
 						<div class="form-group">
-							<label for="nik">Plat Nomor Motor</label>
-							<input id="nik" type="text" name="plat" value="" class="form-control" required>
+							<label for="plat">Plat Nomor Motor</label>
+							<input id="plat" type="text" name="plat" value="" class="form-control" required>
 						</div><br>
 						<div class="form-group">
-							<label for="nama">Merek Motor</label>
-							<input id="nama" type="text" name="merek" value="" class="form-control" required>
+							<label for="merek">Merek Motor</label>
+							<input id="merek" type="text" name="merek" value="" class="form-control" required>
 						</div><br>
 						<div class="form-group">
-							<label for="nohp">Tipe Motor</label>
-							<input id="nohp" type="text" name="tipe" value="" class="form-control" required>
+							<label for="tipe">Tipe Motor</label>
+							<input id="tipe" type="text" name="tipe" value="" class="form-control" required>
 						</div><br>
 						<div class="input-group">
 							<span class="input-group-text" id="mata-uang">Rp</span>
