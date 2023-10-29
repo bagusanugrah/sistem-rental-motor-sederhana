@@ -57,6 +57,7 @@
 				</div>
 				<div class="card-body">
 					<form method="post" action="tambah-motor.php">
+						<input type="hidden" name="iduser" value="<?php echo $_GET['id'] ?>">
 						<div class="form-group">
 							<label for="plat">Plat Nomor Motor</label>
 							<input id="plat" type="text" name="plat" value="" class="form-control" required>
