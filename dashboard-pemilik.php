@@ -1,3 +1,14 @@
+<?php
+    //jalankan session
+    session_start();
+    //jika session username tidak diatur
+    if (!isset($_SESSION['username'])){
+        //redirect ke halaman login
+        echo "<script>
+                document.location='login.php';
+            </script>";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

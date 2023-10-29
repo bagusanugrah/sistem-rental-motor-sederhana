@@ -32,11 +32,11 @@
 					Login
 				</div>
 				<div class="card-body">
-					<form method="post" action="proses-registrasi.php">
+					<form method="post" action="proses-login.php">
 						<div class="form-group">
 							<label>Login Sebagai</label>
-							<select class="form-select" aria-label="Default select example">
-								<option selected>-- Pilih Salah Satu --</option>
+							<select name="role" class="form-select" aria-label="Default select example" required>
+								<option value="">-- Pilih Salah Satu --</option>
 								<option value="admin">Admin</option>
 								<option value="pemilik">Pemilik Motor</option>
 								<option value="penyewa">Penyewa Motor</option>
