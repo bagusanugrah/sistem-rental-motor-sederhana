@@ -1,3 +1,25 @@
+<?php
+    //jalankan session
+    session_start();
+
+	//nilai session username ditampung ke dalam variabel username
+    $username = $_SESSION['username'];
+    //jika session username dan role diatur dan session role bernilai 'penyewa'
+    if(isset($_SESSION['username']) && isset($_SESSION['role']) && $_SESSION['role'] == 'penyewa'){
+        //redirect ke dashboard penyewa
+        echo "<script>
+                document.location='dashboard-penyewa.php?id=$username';
+            </script>";
+    }
+    
+    //jika session username dan role diatur dan session role bernilai 'pemilik'
+    if(isset($_SESSION['username']) && isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'){
+        //redirect ke dashboard pemilik
+        echo "<script>
+                document.location='dashboard-pemilik.php?id=$username';
+            </script>";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
