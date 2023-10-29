@@ -52,7 +52,7 @@
             </div>
             <div class="card-body">
                 <div class="text-left mb-3">
-                    <a href="rentalkan-motor.php" class="btn btn-success">+ Rentalkan Motor</a>
+                    <a href="rentalkan-motor.php?id=<?php echo $_GET['id'] ?>" class="btn btn-success">+ Rentalkan Motor</a>
                 </div>
                 <table class="table table-bordered table-striped">
                     <tr>

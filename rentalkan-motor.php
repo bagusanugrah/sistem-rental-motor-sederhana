@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="col-md-6 m-auto">
 				<div class="text-left mb-3 mt-3">
-					<a href="dashboard-pemilik.php" class="btn btn-secondary">< Kembali ke Dashboard</a>
+					<a href="dashboard-pemilik.php?id=<?php echo $_GET['id'] ?>" class="btn btn-secondary">< Kembali ke Dashboard</a>
 				</div>
 				<!-- Awal Card Form -->
 				<div class="card mt-3 mb-3">
