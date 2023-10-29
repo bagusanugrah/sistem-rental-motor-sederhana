@@ -78,7 +78,7 @@
                         <td><?php echo $d['sewa_perhari'] ?></td>
                         <td>
                             <a href="edit-motor.php?idmotor=<?php echo $d['plat_nomor'] ?>" class="btn btn-warning"> Edit </a>
-                            <a href="" class="btn btn-danger"> Hapus </a>
+                            <a href="hapus.php?idmotor=<?php echo $d['plat_nomor'] ?>" class="btn btn-danger"> Hapus </a>
                         </td>
                     </tr>
                     <?php 
