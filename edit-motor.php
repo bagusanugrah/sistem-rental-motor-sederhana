@@ -35,7 +35,7 @@
     $tipe = $motor['tipe'];
     $biaya = $motor['sewa_perhari'];
 
-    //jika pemilik yang login bukanlah pemilik motor yang diedit datany
+    //jika pemilik yang login bukanlah pemilik motor yang diedit datanya
     if($username != $id_pemilik){
         //redirect ke dashboard pemilik terkait
         echo "<script>
