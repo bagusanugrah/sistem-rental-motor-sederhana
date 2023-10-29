@@ -38,7 +38,7 @@ if($role == "" || $nik == ""|| $nama == "" || $nohp == "" || $username == "" || 
                 //jika username belum terdaftar
                 if(mysqli_num_rows($cekdata) == 0){
                     //inputkan semua data dari form ke database
-                    $simpan = mysqli_query($koneksi, "INSERT INTO pemilik VALUES('$username', '$nik', '$nama', '$nohp', '$password')");
+                    $simpan = mysqli_query($koneksi, "INSERT INTO pemilik(username, nik, nama, no_hp, password) VALUES('$username', '$nik', '$nama', '$nohp', '$password')");
 
                     //jika berhasil inputkan data ke database
                     if($simpan){
@@ -67,7 +67,7 @@ if($role == "" || $nik == ""|| $nama == "" || $nohp == "" || $username == "" || 
                 //jika username belum terdaftar
                 if(mysqli_num_rows($cekdata) == 0){
                     //inputkan semua data dari form ke database
-                    $simpan = mysqli_query($koneksi, "INSERT INTO penyewa VALUES('$username', '$nik', '$nama', '$nohp', '$password')");
+                    $simpan = mysqli_query($koneksi, "INSERT INTO penyewa(username, nik, nama, no_hp, password) VALUES('$username', '$nik', '$nama', '$nohp', '$password')");
 
                     //jika berhasil inputkan data ke database
                     if($simpan){
