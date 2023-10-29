@@ -7,6 +7,19 @@
         echo "<script>
                 document.location='login.php';
             </script>";
+    }else{//jika session username diatur
+        //nilai session username ditampung ke dalam variabel username
+        $username = $_SESSION['username'];
+        //username yang didapat dari query parameter id
+        $id_penyewa = $_GET['id'];
+
+        //jika username pada query parameter id bukanlah penyewa yang login
+        if($id_penyewa != $username){
+            //redirect ke dashboard penyewa terkait
+            echo "<script>
+                    document.location='dashboard-penyewa.php?id=$username';
+                </script>";
+        }
     }
 
     //jika session role diatur dan session role bernilai 'pemilik'
