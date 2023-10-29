@@ -9,10 +9,10 @@
             </script>";
     }
 
-    //nilai session username ditampung ke dalam variabel username
-    $username = $_SESSION['username'];
     //jika session role diatur dan session role bernilai 'pemilik'
     if(isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'){
+        //nilai session username ditampung ke dalam variabel username
+        $username = $_SESSION['username'];
         //redirect ke dashboard pemilik
         echo "<script>
                 document.location='dashboard-pemilik.php?id=$username';
