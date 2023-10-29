@@ -28,7 +28,7 @@ if($plat == "" || $merek == ""|| $tipe == "" || $biaya == ""){
         //jika plat nomor belum terdaftar
         if(mysqli_num_rows($cekdata) == 0){
             //inputkan semua data dari form ke database
-            $simpan = mysqli_query($koneksi, "INSERT INTO motor(plat_nomor, merek, tipe, sewa_perhari, id_pemilik) VALUES('$plat', '$merek', '$tipe', '$biaya', '$id_pemilik')");
+            $simpan = mysqli_query($koneksi, "INSERT INTO motor(plat_nomor, merek, tipe, sewa_perhari, id_pemilik) VALUES('$plat', '$merek', '$tipe', $biaya, '$id_pemilik')");
 
             //jika berhasil inputkan data ke database
             if($simpan){
