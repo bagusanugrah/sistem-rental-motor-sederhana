@@ -18,7 +18,7 @@ if($plat == "" || $merek == ""|| $tipe == "" || $biaya == ""){
         </script>";
 } else {//jika form tidak ada yang kosong
     //jika plat terdiri dari selain dari aphanumeric dan spasi
-    if(!(ctype_alnum($plat)) && !(strpos($plat, ' '))){
+    if(preg_match('/[^a-zA-Z0-9\s]/', $plat)){
         echo "<script>
                 alert('plat tidak boleh selain dari huruf, angka, dan spasi!');
                 document.location='edit-motor.php?idmotor=$id_motor';
