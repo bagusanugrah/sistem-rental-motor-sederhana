@@ -63,18 +63,27 @@
                         <th>Biaya Sewa Perhari</th>
                         <th>Aksi</th>
                     </tr>
-                    
+                    <?php 
+                        include 'koneksi.php';
+                        $no = 1;
+                        $username = $_GET['id'];
+                        $data = mysqli_query($koneksi,"SELECT * FROM motor WHERE id_pemilik='$username' ORDER BY created_at");
+                        while($d = mysqli_fetch_array($data)){
+                    ?>
                     <tr>
-                        <td>1</td>
-                        <td>Honda</td>
-                        <td>Beat</td>
-                        <td>B 1234 AB</td>
-                        <td>Rp50000</td>
+                        <td><?php echo $no++ ?></td>
+                        <td><?php echo $d['merek'] ?></td>
+                        <td><?php echo $d['tipe'] ?></td>
+                        <td><?php echo $d['plat_nomor'] ?></td>
+                        <td><?php echo $d['sewa_perhari'] ?></td>
                         <td>
                             <a href="" class="btn btn-warning"> Edit </a>
                             <a href="" class="btn btn-danger"> Hapus </a>
                         </td>
                     </tr>
+                    <?php 
+                        }
+                    ?>
                 </table>
 
             </div>
