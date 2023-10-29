@@ -7,11 +7,11 @@ $role = $_POST['role'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-//jika form registrasi ada yang kosong
+//jika form login ada yang kosong
 if($username == "" || $password == ""){
     echo "<script>
             alert('Form tidak boleh ada yang kosong!');
-            document.location='registrasi.php';
+            document.location='login.php';
         </script>";
 } else {//jika form tidak ada yang kosong
     //jika login sebagai pemilik
