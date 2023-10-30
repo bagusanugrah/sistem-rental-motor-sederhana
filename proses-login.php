@@ -35,6 +35,11 @@ if($username == "" || $password == ""){
                 echo "<script>
                         document.location='dashboard-pemilik.php?id=$username';
                     </script>";
+            } else {
+                echo "<script>
+                        alert('password salah!');
+                        document.location='login.php';
+                    </script>";
             }
         } else{//jika username tidak ada di database
             echo "<script>
@@ -64,6 +69,11 @@ if($username == "" || $password == ""){
                 //redirect ke dashboard
                 echo "<script>
                         document.location='dashboard-penyewa.php?id=$username';
+                    </script>";
+            } else {
+                echo "<script>
+                        alert('password salah!');
+                        document.location='login.php';
                     </script>";
             }
         } else{//jika username tidak ada di database
