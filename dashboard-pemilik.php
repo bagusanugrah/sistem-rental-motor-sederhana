@@ -139,6 +139,7 @@
                     </tr>
                     <?php 
                         $no = 1;
+                        $id_penyewaan = '';
                         //ambil data penyewaan berdasarkan id_pemilik
                         $data = mysqli_query($koneksi,"SELECT * FROM penyewaan WHERE id_pemilik='$username' ORDER BY id_penyewaan");
                         while($d = mysqli_fetch_array($data)){
