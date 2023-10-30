@@ -75,19 +75,35 @@
                         <th>No. HP Pemilik</th>
                         <th>Aksi</th>
                     </tr>
-                    
+                    <?php 
+                        include 'koneksi.php';
+                        $no = 1;
+                        $data = mysqli_query($koneksi,"SELECT * FROM motor ORDER BY created_at");
+                        while($d = mysqli_fetch_array($data)){
+                    ?>
                     <tr>
-                        <td>1</td>
-                        <td>Honda</td>
-                        <td>Beat</td>
-                        <td>B 1234 AB</td>
-                        <td>Rp50000</td>
-                        <td>Sumanto</td>
-                        <td>0812345678</td>
+                        <td><?php echo $no++ ?></td>
+                        <td><?php echo $d['merek'] ?></td>
+                        <td><?php echo $d['tipe'] ?></td>
+                        <td><?php echo $d['plat_nomor'] ?></td>
+                        <td><?php echo $d['sewa_perhari'] ?></td>
+                        <?php 
+                            //ambil data pemilik dari database berdasarkan id_pemilik dari tabel motor
+                            $id_pemilik = $d['id_pemilik'];
+                            $getpemilik = mysqli_query($koneksi, "SELECT * FROM pemilik WHERE username='$id_pemilik'");
+                            $pemilik = mysqli_fetch_array($getpemilik);
+                            $nama = $pemilik['nama'];
+                            $nohp = $pemilik['no_hp'];
+                        ?>
+                        <td><?php echo $nama ?></td>
+                        <td><?php echo $nohp ?></td>
                         <td>
                             <a href="" class="btn btn-primary"> Sewa </a>
                         </td>
                     </tr>
+                    <?php 
+                        }
+                    ?>
                 </table>
 
             </div>
