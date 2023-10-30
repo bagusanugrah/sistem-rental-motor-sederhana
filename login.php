@@ -61,7 +61,7 @@
 							<label>Login Sebagai</label>
 							<select name="role" class="form-select" aria-label="Default select example" required>
 								<option value="">-- Pilih Salah Satu --</option>
-								<option value="admin">Admin</option>
+								<!-- <option value="admin">Admin</option> -->
 								<option value="pemilik">Pemilik Motor</option>
 								<option value="penyewa">Penyewa Motor</option>
 							</select>
