@@ -87,6 +87,11 @@
                             $merek = $d['merek'];
                             $tipe = $d['tipe'];
                             $sewa_perhari = $d['sewa_perhari'];
+
+                            //cari data penyewaan berdasarkan plat nomor
+                            $get_penyewaan = mysqli_query($koneksi, "SELECT * FROM penyewaan WHERE plat_nomor='$plat_nomor'");
+                            if(!mysqli_fetch_array($get_penyewaan)){//jika plat nomor tidak terdapat dalam tabel penyewaan
+                            //maka tampilkan data motor
                     ?>
                     <tr>
                         <td><?php echo $no++ ?></td>
@@ -109,6 +114,7 @@
                         </td>
                     </tr>
                     <?php 
+                            }
                         }
                     ?>
                 </table>
