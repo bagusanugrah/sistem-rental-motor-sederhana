@@ -80,6 +80,7 @@
                         include 'koneksi.php';
                         $no = 1;
                         $username = $_GET['id'];
+                        //dapatkan data motor
                         $data = mysqli_query($koneksi,"SELECT * FROM motor WHERE id_pemilik='$username' ORDER BY created_at");
                         while($d = mysqli_fetch_array($data)){
                     ?>
@@ -104,7 +105,7 @@
         <!-- Akhir Card Tabel -->
 
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Awal Card Tabel -->
         <div class="card mt-3 mb-3">
             <div class="card-header bg-dark text-white">
@@ -114,27 +115,63 @@
                 <table class="table table-bordered table-striped">
                     <tr>
                         <th>No.</th>
-                        <th>Merek Motor</th>
-                        <th>Tipe Motor</th>
                         <th>Plat Nomor</th>
+                        <th>NIK Penyewa</th>
                         <th>Nama Penyewa</th>
                         <th>No. HP Penyewa</th>
                         <th>Tgl Penyewaan</th>
                         <th>Tgl Pengembalian</th>
                         <th>Biaya</th>
+                        <th>Aksi</th>
                     </tr>
-                    
+                    <?php
+                        $no = 1;
+
+                        //dapatkan data motor dari pemilik motor yang sedang login
+                        $data = mysqli_query($koneksi,"SELECT * FROM motor WHERE id_pemilik='$username' ORDER BY created_at");
+                        while($d = mysqli_fetch_array($data)) {
+                            $plat_nomor = $d['plat_nomor'];
+
+                            //cari plat nomor di tabel penyewaan
+                            $getpenyewaan = mysqli_query($koneksi, "SELECT * FROM penyewaan WHERE plat_nomor='$plat_nomor'");
+
+                            //jika plat nomor ada di tabel penyewaan
+                            var_dump(mysqli_fetch_array($getpenyewaan));
+                            if(mysqli_fetch_array($getpenyewaan)){
+                                while($penyewaan = mysqli_fetch_array($getpenyewaan)){
+                                    $id_penyewaan = $penyewaan["id_penyewaan"];
+                                    $id_penyewa = $penyewaan['id_penyewa'];
+                                    $id_motor = $penyewaan['plat_nomor'];
+                                    $merek_motor = $penyewaan['merek_motor'];
+                                    $tipe_motor = $penyewaan['tipe_motor'];
+                                    $sewa_perhari = $penyewaan['sewa_perhari'];
+                                    $tgl_penyewaan = $penyewaan['tgl_penyewaan'];
+
+                                    //dapatkan data penyewa
+                                    $getpenyewa = mysqli_query($koneksi, "SELECT * FROM penyewa WHERE username='$id_penyewa'");
+                                    $penyewa = mysqli_fetch_array($getpenyewa);
+                                    $nik_penyewa = $penyewa['nik'];
+                                    $nama_penyewa = $penyewa['nama'];
+                                    $nohp_penyewa = $penyewa['no_hp'];
+                    ?>
                     <tr>
-                        <td>1</td>
-                        <td>Honda</td>
-                        <td>Beat</td>
-                        <td>B 1234 AB</td>
-                        <td>Paijo</td>
-                        <td>0812345678</td>
-                        <td>12/10/2023</td>
-                        <td>13/10/2023</td>
-                        <td>Rp150000</td>
+                        <td><?php echo $no++ ?></td>
+                        <td><?php echo $id_motor ?></td>
+                        <td><?php echo $nik_penyewa ?></td>
+                        <td><?php echo $nama_penyewa ?></td>
+                        <td><?php echo $nohp_penyewa ?></td>
+                        <td><?php echo $tgl_penyewaan ?></td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>
+                        <a href="<?php echo "dikembalikan.php?idpenyewaan=$idpenyewaan" ?>" class="btn btn-primary"> Dikembalikan </a>
+                        </td>
                     </tr>
+                    <?php
+                                }
+                            }
+                        }
+                    ?>
                 </table>
 
             </div>
