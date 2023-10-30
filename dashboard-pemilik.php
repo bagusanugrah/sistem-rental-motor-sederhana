@@ -124,7 +124,7 @@
         <!-- Awal Card Tabel -->
         <div class="card mt-3 mb-3">
             <div class="card-header bg-dark text-white">
-                Motor Yang Disewa
+                History Transaksi Rental
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped text-center">
