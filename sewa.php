@@ -25,7 +25,7 @@
         $username = $_SESSION['username'];
         $tgl_hari_ini = date("Y-m-d");
         //masukkan data motor yang dipilih ke tabel penyewaan
-        $simpan = mysqli_query($koneksi, "INSERT INTO penyewaan(tgl_penyewaan, merek_motor, tipe_motor, plat_nomor, sewa_perhari, id_penyewa) VALUES('$tgl_hari_ini', '$merek', '$tipe', '$id_motor', '$sewa_perhari', '$username')");
+        $simpan = mysqli_query($koneksi, "INSERT INTO penyewaan(tgl_penyewaan, merek_motor, tipe_motor, plat_nomor, id_pemilik, sewa_perhari, id_penyewa) VALUES('$tgl_hari_ini', '$merek', '$tipe', '$id_motor', '$id_pemilik', '$sewa_perhari', '$username')");
     
         //jika berhasil sewa motor
         if($simpan){
