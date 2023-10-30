@@ -80,13 +80,17 @@
                         $no = 1;
                         $data = mysqli_query($koneksi,"SELECT * FROM motor ORDER BY created_at");
                         while($d = mysqli_fetch_array($data)){
+                            $plat_nomor = $d['plat_nomor'];
+                            $merek = $d['merek'];
+                            $tipe = $d['tipe'];
+                            $biaya = $d['sewa_perhari'];
                     ?>
                     <tr>
                         <td><?php echo $no++ ?></td>
-                        <td><?php echo $d['merek'] ?></td>
-                        <td><?php echo $d['tipe'] ?></td>
-                        <td><?php echo $d['plat_nomor'] ?></td>
-                        <td><?php echo $d['sewa_perhari'] ?></td>
+                        <td><?php echo $merek ?></td>
+                        <td><?php echo $tipe ?></td>
+                        <td><?php echo $plat_nomor ?></td>
+                        <td><?php echo $biaya ?></td>
                         <?php 
                             //ambil data pemilik dari database berdasarkan id_pemilik dari tabel motor
                             $id_pemilik = $d['id_pemilik'];
@@ -98,7 +102,7 @@
                         <td><?php echo $nama ?></td>
                         <td><?php echo $nohp ?></td>
                         <td>
-                            <a href="" class="btn btn-primary"> Sewa </a>
+                            <a href="<?php echo "sewa.php?idmotor=$plat_nomor" ?>" class="btn btn-primary"> Sewa </a>
                         </td>
                     </tr>
                     <?php 
