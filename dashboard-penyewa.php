@@ -134,8 +134,10 @@
                 <table class="table table-bordered table-striped text-center">
                     <tr>
                         <th>No.</th>
-                        <th>Motor</th>
-                        <th>Pemilik</th>
+                        <th>Merek Motor</th>
+                        <th>Tipe Motor</th>
+                        <th>Plat Nomor</th>
+                        <th>Biaya Sewa Perhari</th>
                         <th>Tanggal Penyewaan</th>
                         <th>Tanggal Pengembalian</th>
                         <th>Biaya</th>
@@ -151,19 +153,6 @@
                             $tipe = $d['tipe_motor'];
                             $sewa_perhari = $d['sewa_perhari'];
                             $tgl_penyewaan = $d['tgl_penyewaan'];
-
-                            //ambil data motor dengan plat_nomor tersebut
-                            $getmotor = mysqli_query($koneksi,"SELECT * FROM motor WHERE plat_nomor='$plat_nomor'");
-                            $motor = mysqli_fetch_array($getmotor);
-                            //dapatkan id_pemilik
-                            $id_pemilik = $motor['id_pemilik'];
-
-                            //cari pemilik dengan id_pemilik tersebut
-                            $getpemilik = mysqli_query($koneksi,"SELECT * FROM pemilik WHERE username='$id_pemilik'");
-                            $pemilik = mysqli_fetch_array($getpemilik);
-                            //dapatkan nama dan nohp
-                            $nama_pemilik = $pemilik['nama'];
-                            $nohp_pemilik = $pemilik['no_hp'];
 
                             //ambil data pengembalian berdasarkan id_penyewaan
                             $getpengembalian = mysqli_query($koneksi,"SELECT * FROM pengembalian WHERE id_penyewaan='$id_penyewaan'");
@@ -183,8 +172,10 @@
                     ?>
                     <tr>
                         <td><?php echo $no++ ?></td>
-                        <td><?php echo $plat_nomor ?><br><?php echo $merek ?><br><?php echo $tipe ?><br><?php echo "Rp$sewa_perhari/hari" ?></td>
-                        <td><?php echo $nama_pemilik ?><br><?php echo $nohp_pemilik ?></td>
+                        <td><?php echo $merek ?></td>
+                        <td><?php echo $tipe ?></td>
+                        <td><?php echo $plat_nomor ?></td>
+                        <td>Rp<?php echo $sewa_perhari ?></td>
                         <td><?php echo $tgl_penyewaan ?></td>
                         <td>
                             <?php
