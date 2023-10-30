@@ -83,17 +83,32 @@
                         //dapatkan data motor
                         $data = mysqli_query($koneksi,"SELECT * FROM motor WHERE id_pemilik='$username' ORDER BY created_at");
                         while($d = mysqli_fetch_array($data)){
+                            $plat_nomor = $d['plat_nomor'];
+                            $merek = $d['merek'];
+                            $tipe = $d['tipe'];
+                            $sewa_perhari = $d['sewa_perhari'];
+
+                            //cari data penyewaan berdasarkan plat nomor
+                            $get_penyewaan = mysqli_query($koneksi, "SELECT * FROM penyewaan WHERE plat_nomor='$plat_nomor'");
+                            
                     ?>
                     <tr>
                         <td><?php echo $no++ ?></td>
-                        <td><?php echo $d['merek'] ?></td>
-                        <td><?php echo $d['tipe'] ?></td>
-                        <td><?php echo $d['plat_nomor'] ?></td>
-                        <td><?php echo $d['sewa_perhari'] ?></td>
+                        <td><?php echo $merek ?></td>
+                        <td><?php echo $tipe ?></td>
+                        <td><?php echo $plat_nomor ?></td>
+                        <td><?php echo $sewa_perhari ?></td>
                         <td>
+                        <?php
+                            if(!mysqli_fetch_array($get_penyewaan)){//jika plat nomor tidak terdapat dalam tabel penyewaan
+                                //maka tampilkan tombol aksi
+                        ?>
                             <a href="edit-motor.php?idmotor=<?php echo $d['plat_nomor'] ?>" class="btn btn-warning"> Edit </a>
                             <a href="hapus.php?idmotor=<?php echo $d['plat_nomor'] ?>" class="btn btn-danger"> Hapus </a>
-                        </td>
+                        </td> 
+                        <?php
+                            }
+                        ?>
                     </tr>
                     <?php 
                         }
@@ -105,71 +120,84 @@
         <!-- Akhir Card Tabel -->
 
     </div>
-    <div class="container-fluid">
+    <div class="container">
         <!-- Awal Card Tabel -->
         <div class="card mt-3 mb-3">
             <div class="card-header bg-dark text-white">
-                Motor Yang Dirental
+                Motor Yang Disewa
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
                     <tr>
                         <th>No.</th>
-                        <th>Plat Nomor</th>
-                        <th>NIK Penyewa</th>
-                        <th>Nama Penyewa</th>
-                        <th>No. HP Penyewa</th>
+                        <th>Motor</th>
+                        <th>Penyewa</th>
                         <th>Tgl Penyewaan</th>
                         <th>Tgl Pengembalian</th>
                         <th>Biaya</th>
                         <th>Aksi</th>
                     </tr>
-                    <?php
+                    <?php 
                         $no = 1;
-
-                        //dapatkan data motor dari pemilik motor yang sedang login
-                        $data = mysqli_query($koneksi,"SELECT * FROM motor WHERE id_pemilik='$username' ORDER BY created_at");
-                        while($d = mysqli_fetch_array($data)) {
+                        //ambil data penyewaan berdasarkan id_pemilik
+                        $data = mysqli_query($koneksi,"SELECT * FROM penyewaan WHERE id_pemilik='$username' ORDER BY id_penyewaan");
+                        while($d = mysqli_fetch_array($data)){
+                            $id_penyewaan = $d['id_penyewaan'];
+                            $id_penyewa = $d['id_penyewa'];
                             $plat_nomor = $d['plat_nomor'];
+                            $merek = $d['merek_motor'];
+                            $tipe = $d['tipe_motor'];
+                            $sewa_perhari = $d['sewa_perhari'];
+                            $tgl_penyewaan = $d['tgl_penyewaan'];
 
-                            //cari plat nomor di tabel penyewaan
-                            $getpenyewaan = mysqli_query($koneksi, "SELECT * FROM penyewaan WHERE plat_nomor='$plat_nomor'");
+                            //ambil data penyewa berdasarkan username penyewa
+                            $getpenyewa = mysqli_query($koneksi,"SELECT * FROM penyewa WHERE username='$id_penyewa'");
+                            $penyewa = mysqli_fetch_array($getpenyewa);
+                            $nik_penyewa = $penyewa['nik'];
+                            $nama_penyewa = $penyewa['nama'];
+                            $nohp_penyewa = $penyewa['no_hp'];
+                            
 
-                            //jika plat nomor ada di tabel penyewaan
-                            var_dump(mysqli_fetch_array($getpenyewaan));
-                            if(mysqli_fetch_array($getpenyewaan)){
-                                while($penyewaan = mysqli_fetch_array($getpenyewaan)){
-                                    $id_penyewaan = $penyewaan["id_penyewaan"];
-                                    $id_penyewa = $penyewaan['id_penyewa'];
-                                    $id_motor = $penyewaan['plat_nomor'];
-                                    $merek_motor = $penyewaan['merek_motor'];
-                                    $tipe_motor = $penyewaan['tipe_motor'];
-                                    $sewa_perhari = $penyewaan['sewa_perhari'];
-                                    $tgl_penyewaan = $penyewaan['tgl_penyewaan'];
-
-                                    //dapatkan data penyewa
-                                    $getpenyewa = mysqli_query($koneksi, "SELECT * FROM penyewa WHERE username='$id_penyewa'");
-                                    $penyewa = mysqli_fetch_array($getpenyewa);
-                                    $nik_penyewa = $penyewa['nik'];
-                                    $nama_penyewa = $penyewa['nama'];
-                                    $nohp_penyewa = $penyewa['no_hp'];
+                            //ambil data pengembalian berdasarkan id_penyewaan
+                            $getpengembalian = mysqli_query($koneksi,"SELECT * FROM pengembalian WHERE id_penyewaan='$id_penyewaan'");
+                            $pengembalian = '';
+                            //jika ada ditemukan data pengembalian berdasarkan id_penyewaan
+                            if(mysqli_fetch_array($getpengembalian)){
+                                //ambil data pengembalian
+                                $pengembalian = mysqli_fetch_array($getpengembalian);
+                                $tgl_pengembalian = $pengembalian['tgl_pengembalian'];
+                                $jumlah_hari = round((strtotime($tgl_pengembalian) - strtotime($tgl_penyewaan)) / (60 * 60 * 24));
+                                $biaya = $jumlah_hari * $sewa_perhari;
+                            }
                     ?>
                     <tr>
                         <td><?php echo $no++ ?></td>
-                        <td><?php echo $id_motor ?></td>
-                        <td><?php echo $nik_penyewa ?></td>
-                        <td><?php echo $nama_penyewa ?></td>
-                        <td><?php echo $nohp_penyewa ?></td>
+                        <td><?php echo $plat_nomor ?><br><?php echo $merek ?><br><?php echo $tipe ?><br><?php echo "Rp$sewa_perhari/hari" ?></td>
+                        <td><?php echo $nik_penyewa ?><br><?php echo $nama_penyewa ?><br><?php echo $nohp_penyewa ?></td>
                         <td><?php echo $tgl_penyewaan ?></td>
-                        <td>-</td>
-                        <td>-</td>
                         <td>
-                        <a href="<?php echo "dikembalikan.php?idpenyewaan=$idpenyewaan" ?>" class="btn btn-primary"> Dikembalikan </a>
+                            <?php
+                                if($pengembalian==''){
+                                    echo '-';
+                                } else{
+                                    echo $tgl_pengembalian;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                if($pengembalian==''){
+                                    echo '-';
+                                } else{
+                                    echo $biaya;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                        <a href="<?php echo "dikembalikan.php?idpenyewaan=$id_penyewaan" ?>" class="btn btn-primary"> Dikembalikan </a>
                         </td>
                     </tr>
                     <?php
-                                }
-                            }
                         }
                     ?>
                 </table>
