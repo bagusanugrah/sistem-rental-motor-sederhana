@@ -43,7 +43,7 @@
                     </script>";
             } else{//jika gagal kembalikan motor
                 echo "<script>
-                        alert('Proses pengembalian motor gagal! $tgl_penyewaan $id_penyewaan $tgl_hari_ini');
+                        alert('Proses pengembalian motor gagal!');
                         document.location='dashboard-pemilik.php?id=$username';
                     </script>";
             }
