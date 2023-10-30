@@ -37,7 +37,7 @@
         } else{//jika gagal sewa motor
             echo "<script>
                     alert('Proses sewa motor gagal!');
-                    // document.location='dashboard-penyewa.php?id=$username';
+                    document.location='dashboard-penyewa.php?id=$username';
                 </script>";
         }
     }
