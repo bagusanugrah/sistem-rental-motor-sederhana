@@ -1,6 +1,9 @@
 <?php
     //jalankan session
     session_start();
+
+    $username = '';
+
     //jika session username tidak diatur
     if (!isset($_SESSION['username'])){
         //redirect ke halaman login
@@ -83,14 +86,14 @@
                             $plat_nomor = $d['plat_nomor'];
                             $merek = $d['merek'];
                             $tipe = $d['tipe'];
-                            $biaya = $d['sewa_perhari'];
+                            $sewa_perhari = $d['sewa_perhari'];
                     ?>
                     <tr>
                         <td><?php echo $no++ ?></td>
                         <td><?php echo $merek ?></td>
                         <td><?php echo $tipe ?></td>
                         <td><?php echo $plat_nomor ?></td>
-                        <td><?php echo $biaya ?></td>
+                        <td><?php echo $sewa_perhari ?></td>
                         <?php 
                             //ambil data pemilik dari database berdasarkan id_pemilik dari tabel motor
                             $id_pemilik = $d['id_pemilik'];
@@ -119,7 +122,7 @@
         <!-- Awal Card Tabel -->
         <div class="card mt-3 mb-3">
             <div class="card-header bg-dark text-white">
-                Motor Yang Dirental
+                History Transaksi Rental
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
@@ -128,20 +131,64 @@
                         <th>Merek Motor</th>
                         <th>Tipe Motor</th>
                         <th>Plat Nomor</th>
+                        <th>Biaya Sewa Perhari</th>
                         <th>Tanggal Penyewaan</th>
                         <th>Tanggal Pengembalian</th>
                         <th>Biaya</th>
                     </tr>
-                    
+                    <?php 
+                        $no = 1;
+                        //ambil data penyewaan berdasarkan id_penyewa
+                        $data = mysqli_query($koneksi,"SELECT * FROM penyewaan WHERE id_penyewa='$username' ORDER BY id_penyewaan");
+                        while($d = mysqli_fetch_array($data)){
+                            $id_penyewaan = $d['id_penyewaan'];
+                            $plat_nomor = $d['plat_nomor'];
+                            $merek = $d['merek_motor'];
+                            $tipe = $d['tipe_motor'];
+                            $sewa_perhari = $d['sewa_perhari'];
+                            $tgl_penyewaan = $d['tgl_penyewaan'];
+
+                            //ambil data pengembalian berdasarkan id_penyewaan
+                            $getpengembalian = mysqli_query($koneksi,"SELECT * FROM pengembalian WHERE id_penyewaan='$id_penyewaan'");
+                            $pengembalian = '';
+                            //jika ada ditemukan data pengembalian berdasarkan id_penyewaan
+                            if(mysqli_fetch_array($getpengembalian)){
+                                //ambil data pengembalian
+                                $pengembalian = mysqli_fetch_array($getpengembalian);
+                                $tgl_pengembalian = $pengembalian['tgl_pengembalian'];
+                                $jumlah_hari = round((strtotime($tgl_pengembalian) - strtotime($tgl_penyewaan)) / (60 * 60 * 24));
+                                $biaya = $jumlah_hari * $sewa_perhari;
+                            }
+                    ?>
                     <tr>
                         <td>1</td>
-                        <td>Honda</td>
-                        <td>Beat</td>
-                        <td>B 1234 AB</td>
-                        <td>12/10/2023</td>
-                        <td>13/10/2023</td>
-                        <td>Rp150000</td>
+                        <td><?php echo $merek ?></td>
+                        <td><?php echo $tipe ?></td>
+                        <td><?php echo $plat_nomor ?></td>
+                        <td><?php echo $sewa_perhari ?></td>
+                        <td><?php echo $tgl_penyewaan ?></td>
+                        <td>
+                            <?php
+                                if($pengembalian==''){
+                                    echo '-';
+                                } else{
+                                    echo $tgl_pengembalian;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                if($pengembalian==''){
+                                    echo '-';
+                                } else{
+                                    echo $biaya;
+                                }
+                            ?>
+                        </td>
                     </tr>
+                    <?php
+                    }
+                    ?>
                 </table>
 
             </div>

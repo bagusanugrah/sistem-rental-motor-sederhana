@@ -12,7 +12,7 @@
     $id_pemilik = $motor['id_pemilik'];
     $merek = $motor['merek'];
     $tipe = $motor['tipe'];
-    $biaya = $motor['sewa_perhari'];
+    $sewa_perhari = $motor['sewa_perhari'];
 
     //jika session username tidak diatur
     if (!isset($_SESSION['username'])){
@@ -24,7 +24,8 @@
         //nilai session username ditampung ke dalam variabel username
         $username = $_SESSION['username'];
         $tgl_hari_ini = date("Y-m-d");
-        $simpan = mysqli_query($koneksi, "INSERT INTO penyewaan(tgl_penyewaan, merek_motor, tipe_motor, plat_nomor, id_penyewa) VALUES('$tgl_hari_ini', '$merek', '$tipe', '$id_motor', '$username')");
+        //masukkan data motor yang dipilih ke tabel penyewaan
+        $simpan = mysqli_query($koneksi, "INSERT INTO penyewaan(tgl_penyewaan, merek_motor, tipe_motor, plat_nomor, sewa_perhari, id_penyewa) VALUES('$tgl_hari_ini', '$merek', '$tipe', '$id_motor', '$sewa_perhari', '$username')");
     
         //jika berhasil sewa motor
         if($simpan){
