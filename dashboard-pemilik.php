@@ -67,7 +67,7 @@
                 <div class="text-left mb-3">
                     <a href="rentalkan-motor.php?id=<?php echo $_GET['id'] ?>" class="btn btn-success">+ Rentalkan Motor</a>
                 </div>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped text-center">
                     <tr>
                         <th>No.</th>
                         <th>Merek Motor</th>
@@ -127,7 +127,7 @@
                 Motor Yang Disewa
             </div>
             <div class="card-body">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped text-center">
                     <tr>
                         <th>No.</th>
                         <th>Motor</th>
