@@ -10,6 +10,7 @@
     //dapatkan data penyewaan dari database berdasarkan id_penyewaan
     $getpenyewaan = mysqli_query($koneksi, "SELECT * FROM penyewaan WHERE id_penyewaan='$id_penyewaan'");
     $penyewaan = mysqli_fetch_array($getpenyewaan);
+    $plat_nomor = $penyewaan['plat_nomor'];
     $id_pemilik = $penyewaan['id_pemilik'];
     $tgl_penyewaan = $penyewaan['tgl_penyewaan'];
 
@@ -32,15 +33,24 @@
         } else{//jika pemilik yang login adalah pemilik motor
             $tgl_hari_ini = date("Y-m-d");
             //masukkan tgl_penyewaan dan id_penyewaan dari tabel penyewaan ke tabel pengembalian
-            $simpan = mysqli_query($koneksi, "INSERT INTO pengembalian(tgl_penyewaan, tgl_pengembalian, id_penyewaan) VALUES('$tgl_penyewaan', '$tgl_hari_ini', '$id_penyewaan')");
+            $simpan = mysqli_query($koneksi, "INSERT INTO pengembalian(tgl_penyewaan, tgl_pengembalian, plat_nomor, id_penyewaan) VALUES('$tgl_penyewaan', '$tgl_hari_ini', '$plat_nomor', '$id_penyewaan')");
         
             //jika berhasil kembalikan motor
             if($simpan){
-                //redirect ke dashboard penyewa
-                echo "<script>
-                        alert('Pengembalian motor berhasil!');
-                        document.location='dashboard-pemilik.php?id=$username';
-                    </script>";
+                //kosongkan plat_nomor di tabel penyewaan dengan id_penyewaan tersebut
+                $update = mysqli_query($koneksi,"UPDATE penyewaan SET plat_nomor='' WHERE id_penyewaan='$id_penyewaan'");
+                //jika plat_nomor berhasil dikosongkan
+                if($update){
+                    echo "<script>
+                            alert('Pengembalian motor berhasil!');
+                            document.location='dashboard-pemilik.php?id=$username';
+                        </script>";
+                } else {//jika plat nomor gagal dikosongkan
+                    echo "<script>
+                    alert('Proses pengembalian motor gagal!');
+                    document.location='dashboard-pemilik.php?id=$username';
+                </script>";
+                }
             } else{//jika gagal kembalikan motor
                 echo "<script>
                         alert('Proses pengembalian motor gagal!');

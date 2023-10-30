@@ -97,10 +97,10 @@
                         <td><?php echo $merek ?></td>
                         <td><?php echo $tipe ?></td>
                         <td><?php echo $plat_nomor ?></td>
-                        <td><?php echo $sewa_perhari ?></td>
+                        <td>Rp<?php echo $sewa_perhari ?></td>
                         <td>
                         <?php
-                            if(!mysqli_fetch_array($get_penyewaan)){//jika plat nomor tidak terdapat dalam tabel penyewaan
+                            if($get_penyewaan->num_rows==0){//jika plat nomor tidak terdapat dalam tabel penyewaan
                                 //maka tampilkan tombol aksi
                         ?>
                             <a href="edit-motor.php?idmotor=<?php echo $d['plat_nomor'] ?>" class="btn btn-warning"> Edit </a>
@@ -141,7 +141,7 @@
                         $no = 1;
                         $id_penyewaan = '';
                         //ambil data penyewaan berdasarkan id_pemilik
-                        $data = mysqli_query($koneksi,"SELECT * FROM penyewaan WHERE id_pemilik='$username' ORDER BY id_penyewaan");
+                        $data = mysqli_query($koneksi,"SELECT * FROM penyewaan WHERE id_pemilik='$username'");
                         while($d = mysqli_fetch_array($data)){
                             $id_penyewaan = $d['id_penyewaan'];
                             $id_penyewa = $d['id_penyewa'];
@@ -158,16 +158,19 @@
                             $nama_penyewa = $penyewa['nama'];
                             $nohp_penyewa = $penyewa['no_hp'];
                             
-
                             //ambil data pengembalian berdasarkan id_penyewaan
-                            $getpengembalian = mysqli_query($koneksi,"SELECT * FROM pengembalian WHERE id_penyewaan='$id_penyewaan'");
+                            $getpengembalian = mysqli_query($koneksi,"SELECT * FROM pengembalian WHERE id_penyewaan=$id_penyewaan");
                             $pengembalian = '';
                             //jika ada ditemukan data pengembalian berdasarkan id_penyewaan
-                            if(mysqli_fetch_array($getpengembalian)){
+                            if($getpengembalian->num_rows>0){
                                 //ambil data pengembalian
                                 $pengembalian = mysqli_fetch_array($getpengembalian);
                                 $tgl_pengembalian = $pengembalian['tgl_pengembalian'];
+                                $plat_nomor = $pengembalian['plat_nomor'];
                                 $jumlah_hari = round((strtotime($tgl_pengembalian) - strtotime($tgl_penyewaan)) / (60 * 60 * 24));
+                                if($jumlah_hari == 0){
+                                    $jumlah_hari = 1;
+                                }
                                 $biaya = $jumlah_hari * $sewa_perhari;
                             }
                     ?>
@@ -190,12 +193,18 @@
                                 if($pengembalian==''){
                                     echo '-';
                                 } else{
-                                    echo $biaya;
+                                    echo "Rp$biaya";
                                 }
                             ?>
                         </td>
                         <td>
+                        <?php 
+                        //jika pengembalian dengan id_penyewaan tersebut tidak ditemukan
+                        if($getpengembalian->num_rows==0){
+                        //tampilkan tombol
+                        ?>
                         <a href="<?php echo "dikembalikan.php?idpenyewaan=$id_penyewaan" ?>" class="btn btn-primary"> Dikembalikan </a>
+                        <?php } ?>
                         </td>
                     </tr>
                     <?php
@@ -211,7 +220,7 @@
 		<!-- Copyright -->
 		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
 			© 2023 Copyright:
-			<a class="text-dark" href="#" target="_blank" title="Github">Penyewaan Motor</a>
+			<a class="text-dark" href="https://github.com/bagusanugrah/sistem-rental-motor-sederhana" target="_blank" title="Github">Penyewaan Motor</a>
 		</div>
 		<!-- Copyright -->
 	</footer>

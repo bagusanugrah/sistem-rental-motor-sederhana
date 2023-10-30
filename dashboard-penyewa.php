@@ -90,7 +90,7 @@
 
                             //cari data penyewaan berdasarkan plat nomor
                             $get_penyewaan = mysqli_query($koneksi, "SELECT * FROM penyewaan WHERE plat_nomor='$plat_nomor'");
-                            if(!mysqli_fetch_array($get_penyewaan)){//jika plat nomor tidak terdapat dalam tabel penyewaan
+                            if($get_penyewaan->num_rows==0){//jika plat nomor tidak terdapat dalam tabel penyewaan
                             //maka tampilkan data motor
                     ?>
                     <tr>
@@ -98,7 +98,7 @@
                         <td><?php echo $merek ?></td>
                         <td><?php echo $tipe ?></td>
                         <td><?php echo $plat_nomor ?></td>
-                        <td><?php echo $sewa_perhari ?></td>
+                        <td>Rp<?php echo $sewa_perhari ?></td>
                         <?php 
                             //ambil data pemilik dari database berdasarkan id_pemilik dari tabel motor
                             $id_pemilik = $d['id_pemilik'];
@@ -158,20 +158,24 @@
                             $getpengembalian = mysqli_query($koneksi,"SELECT * FROM pengembalian WHERE id_penyewaan='$id_penyewaan'");
                             $pengembalian = '';
                             //jika ada ditemukan data pengembalian berdasarkan id_penyewaan
-                            if(mysqli_fetch_array($getpengembalian)){
+                            if($getpengembalian->num_rows>0){
                                 //ambil data pengembalian
                                 $pengembalian = mysqli_fetch_array($getpengembalian);
                                 $tgl_pengembalian = $pengembalian['tgl_pengembalian'];
+                                $plat_nomor = $pengembalian['plat_nomor'];
                                 $jumlah_hari = round((strtotime($tgl_pengembalian) - strtotime($tgl_penyewaan)) / (60 * 60 * 24));
+                                if($jumlah_hari == 0){
+                                    $jumlah_hari = 1;
+                                }
                                 $biaya = $jumlah_hari * $sewa_perhari;
                             }
                     ?>
                     <tr>
-                        <td>1</td>
+                        <td><?php echo $no++ ?></td>
                         <td><?php echo $merek ?></td>
                         <td><?php echo $tipe ?></td>
                         <td><?php echo $plat_nomor ?></td>
-                        <td><?php echo $sewa_perhari ?></td>
+                        <td>Rp<?php echo $sewa_perhari ?></td>
                         <td><?php echo $tgl_penyewaan ?></td>
                         <td>
                             <?php
@@ -187,7 +191,7 @@
                                 if($pengembalian==''){
                                     echo '-';
                                 } else{
-                                    echo $biaya;
+                                    echo "Rp$biaya";
                                 }
                             ?>
                         </td>
@@ -205,7 +209,7 @@
 		<!-- Copyright -->
 		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
 			© 2023 Copyright:
-			<a class="text-dark" href="#" target="_blank" title="Github">Penyewaan Motor</a>
+			<a class="text-dark" href="https://github.com/bagusanugrah/sistem-rental-motor-sederhana" target="_blank" title="Github">Penyewaan Motor</a>
 		</div>
 		<!-- Copyright -->
 	</footer>
