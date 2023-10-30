@@ -32,7 +32,7 @@
         } else{//jika pemilik yang login adalah pemilik motor
             $tgl_hari_ini = date("Y-m-d");
             //masukkan tgl_penyewaan dan id_penyewaan dari tabel penyewaan ke tabel pengembalian
-            $simpan = mysqli_query($koneksi, "INSERT INTO pengembalian(tgl_penyewaan, tgl_pengembalian, id_penyewaan) VALUES('$tgl_penyewaan', '$tgl_hari_ini', '$id_penyewaan'");
+            $simpan = mysqli_query($koneksi, "INSERT INTO pengembalian(tgl_penyewaan, tgl_pengembalian, id_penyewaan) VALUES('$tgl_penyewaan', '$tgl_hari_ini', '$id_penyewaan')");
         
             //jika berhasil kembalikan motor
             if($simpan){
