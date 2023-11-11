@@ -154,11 +154,11 @@
                             $plat_no_penyewaan = $plat_nomor;
 
                             if($plat_no_penyewaan!=''){
-                                //ambil data motor dengan plat_nomor tersebut
-                                $getmotor = mysqli_query($koneksi,"SELECT * FROM motor WHERE plat_nomor='$plat_nomor'");
-                                $motor = mysqli_fetch_array($getmotor);
+                                //ambil data penyewaan dengan plat_nomor dan id_penyewaan
+                                $getpenyewaan = mysqli_query($koneksi,"SELECT * FROM penyewaan WHERE id_penyewaan=$id_penyewaan");
+                                $penyewaan = mysqli_fetch_array($getpenyewaan);
                                 //dapatkan id_pemilik
-                                $id_pemilik = $motor['id_pemilik'];
+                                $id_pemilik = $penyewaan['id_pemilik'];
 
                                 //cari pemilik dengan id_pemilik tersebut
                                 $getpemilik = mysqli_query($koneksi,"SELECT * FROM pemilik WHERE username='$id_pemilik'");
@@ -184,11 +184,11 @@
                                 $biaya = $jumlah_hari * $sewa_perhari;
 
                                 if($plat_no_penyewaan==''){
-                                    //ambil data motor dengan plat_nomor tersebut
-                                    $getmotor = mysqli_query($koneksi,"SELECT * FROM motor WHERE plat_nomor='$plat_nomor'");
-                                    $motor = mysqli_fetch_array($getmotor);
+                                    //ambil data penyewaan dengan plat_nomor dan id_penyewaan
+                                    $getpenyewaan = mysqli_query($koneksi,"SELECT * FROM penyewaan WHERE id_penyewaan=$id_penyewaan");
+                                    $penyewaan = mysqli_fetch_array($getpenyewaan);
                                     //dapatkan id_pemilik
-                                    $id_pemilik = $motor['id_pemilik'];
+                                    $id_pemilik = $penyewaan['id_pemilik'];
     
                                     //cari pemilik dengan id_pemilik tersebut
                                     $getpemilik = mysqli_query($koneksi,"SELECT * FROM pemilik WHERE username='$id_pemilik'");
